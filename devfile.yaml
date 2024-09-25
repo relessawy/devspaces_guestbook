@@ -28,7 +28,7 @@ commands:
     exec:
       label: "Run the application"
       component: nodejs
-      workingDir: ${PROJECTS_ROOT}/DEVSPACES-GUESTBOOK
+      workingDir: ${PROJECTS_ROOT}/devspaces-guestbook
       commandLine: "npm install && node --inspect=9229 app.js"
       group:
         kind: run
