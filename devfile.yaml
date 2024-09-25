@@ -1,4 +1,4 @@
-schemaVersion: 2.1.0
+PACES-GUESTBOOKschemaVersion: 2.1.0
 metadata:
   name: nodejs-mongodb
 components:
@@ -28,7 +28,7 @@ commands:
     exec:
       label: "Run the application"
       component: nodejs
-      workingDir: ${PROJECTS_ROOT}/devspaces_guestbook
+      workingDir: ${PROJECTS_ROOT}/DEVSPACES-GUESTBOOK
       commandLine: "npm install && node --inspect=9229 app.js"
       group:
         kind: run
