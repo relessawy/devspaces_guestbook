@@ -47,6 +47,8 @@ components:
   - name: mongo-storage
     volume:
       size: 1G
+  - id: redhat/vscode-kaoto/latest
+    type: chePlugin
 commands:
   - id: 1-run
     exec:
