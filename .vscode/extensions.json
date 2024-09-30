@@ -4,7 +4,6 @@
     "recommendations": [
       "ms-vscode.js-debug",
       "redhat.fabric8-analytics",
-      "redhat.vscode-kaoto",
-      "cnshenj.vscode-task-manager"    
+      "cnshenj.vscode-task-manager"
     ]
 }
