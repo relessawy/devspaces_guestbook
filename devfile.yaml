@@ -1,34 +1,37 @@
 schemaVersion: 2.1.0
 metadata:
-  name: nodejs-mongodb
+  name: camel-workspace
 components:
-  - name: nodejs
+  - name: tools
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:3.7
-      env:
-      # The values below are used to set up the environment for running the application
-        - name: SECRET
-          value: 220fd770-c028-480d-8f95-f84353c7d55a 
-        - name: NODE_ENV
-          value: production
-      endpoints:
-        - exposure: public
-          name: nodejs
-          targetPort: 8080
-      memoryLimit: 1G
-      mountSources: true
-      volumeMounts:
-        - name: npm
-          path: /home/user/.npm
-  - name: npm
-    volume:
-      size: 1G
+      image: quay.io/devfile/universal-developer-image:latest
+      memoryRequest: 1Gi
+      memoryLimit: 3Gi
+      cpuLimit: 1000m
+      cpuRequest: 500m
 commands:
-  - id: 1-run
+  - id: init-setup
     exec:
-      label: "Run the application"
-      component: nodejs
-      workingDir: ${PROJECTS_ROOT}/devspaces-guestbook
-      commandLine: "npm install && node --inspect=9229 app.js"
-      group:
-        kind: run
+      label: '01: initial setup'
+      component: "tools"
+      workingDir: "${PROJECT_SOURCE}"
+      commandLine: |
+        #if sdkman is present use it
+        #[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh" && sdk default java 17.0.7-tem
+        #if no sdkaman do it manually
+        #[[ -d /usr/lib/jvm/java-17-openjdk ]] && rm -rf ${HOME}/.java/current/* && ln -s /usr/lib/jvm/java-17-openjdk/* ${HOME}/.java/current
+        #copy maven settings pointing to in-cluster nexus mirror
+        [[ -s "$PROJECT_SOURCE/settings.xml" ]] && cp -v $PROJECT_SOURCE/settings.xml $HOME/.m2/
+        #setup git default config
+        git config --local credential.helper store
+        git config --local pull.rebase true
+        git config --local fetch.prune true
+        git config --local diff.colorMoved zebra
+        git config user.name "user"
+        git config user.email "user@opentlc.com"
+        echo "source /usr/share/bash-completion/completions/git" >> /home/user/.bashrc
+        oc completion bash > /home/user/.oc_bash_completion
+        echo "source /home/user/.oc_bash_completion" >> /home/user/.bashrc  
+events:
+  postStart:
+    - init-setup # <== Start of the workspace happens after this command is completed
