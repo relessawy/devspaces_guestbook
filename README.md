@@ -1,3 +1,3 @@
-# Project based on Red Hat build of Apache Camel Workspace
+# Workspace as a Service (WaaS)
 
-This is a project based on Red Hat build of Apache Camel Workspace.
+This is a project implements the concept of WaaS
