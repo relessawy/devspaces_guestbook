@@ -10,7 +10,7 @@
         "UBI8"
       ],
       "url": "https://github.com/relessawy/devspaces_workshop/tree/Lab2.2"
-    }
+    },
     {
       "displayName": "GuestBook Lab2.4", 
       "description": "GuestBook stack",
@@ -22,7 +22,7 @@
         "UBI8"
       ],
       "url": "https://github.com/relessawy/devspaces_workshop/tree/Lab2.4"
-    }
+    },
     {
       "displayName": "Camel Project", 
       "description": "Camel Project stack",
